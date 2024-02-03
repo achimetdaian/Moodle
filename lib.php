@@ -30,6 +30,7 @@ function local_greetings_get_greeting($user) {
         return get_string('greetinguser', 'local_greetings');
     }
 
+    
     $country = $user->country;
     switch ($country) {
         case 'ES':
