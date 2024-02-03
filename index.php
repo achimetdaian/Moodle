@@ -15,21 +15,27 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
- *
  * @package     local_greetings
- * @category    string
  * @copyright   2024 Achimet Daian <achimetdaian@yahoo.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+ require_once('../../config.php');
+ require_once($CFG->dirroot. '/local/greetings/lib.php');
 
-$string['pluginname'] = 'Greetings';
-$string['greetinguser'] = 'Greetings, user.';
-$string['greetingloggedinuser'] = 'Greetings, {$a}.';
+ require_login();
 
-$string['greetinguserau'] = 'Hello, {$a}.';
-$string['greetinguseres'] = 'Hola, {$a}.';
-$string['greetinguserfj'] = 'Bula, {$a}.';
-$string['greetingusernz'] = 'Kia Ora, {$a}.';
+ $context = context_system::instance();
+ $PAGE->set_context($context);
+ $PAGE->set_url(new moodle_url('/local/greetings/index.php'));
+ $PAGE->set_pagelayout('standard');
+ $PAGE->set_title($SITE->fullname);
+ $PAGE->set_heading(get_string('pluginname', 'local_greetings'));
+
+
+ echo $OUTPUT->header();
+
+echo local_greetings_get_greeting($USER);
+echo get_string('greetinguser', 'local_greetings');
+
+echo $OUTPUT->footer();
